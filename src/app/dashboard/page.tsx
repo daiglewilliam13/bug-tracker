@@ -50,13 +50,23 @@ let dummyData = [{
 import '@/app/styles/main.css';
 import { BugCard } from "@/components/bugCard";
 
-console.log(process.env.TEST_KEY);
+console.log(process.env.NEXT_PUBLIC_TEST_KEY);
 export default function Page() {
-    return (
-      dummyData.map((bug) =>{
+  return (
+    <div>
+      <div></div>
+      <div>
+        <button>All Bugs</button>
+        <button>Assigned Bugs</button>
+        <button>Resolved Bugs</button>
+      </div>
+      {dummyData.map((bug) => {
         return (
-        <BugCard bug={bug} display={true}/>
-        )
-      })
-    );
-  }
+          <div>
+            <BugCard bug={bug} display={true} />
+          </div>
+        );
+      })}
+    </div>
+  );
+}
