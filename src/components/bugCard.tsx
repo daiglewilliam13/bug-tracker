@@ -1,5 +1,7 @@
-export function BugCard({ bug }: any) {
-    return (
+export function BugCard({bug}:any, {display}:boolean) {
+console.log(display)
+        return (
+            <div >
         <ul className="bug-card">
             <li>{bug.created}</li>
             <li>{bug.id}</li>
@@ -12,5 +14,6 @@ export function BugCard({ bug }: any) {
             <li>{bug.resolvedDate}</li>
             <li>{bug.createdBy}</li>
         </ul>
+        </div>
     );
-}
+} 

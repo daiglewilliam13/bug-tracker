@@ -1,3 +1,5 @@
+'use client';
+
 let dummyData = [{
   created: "05/25/2024",
   description: "new bug reported, doesn't work",
@@ -37,7 +39,7 @@ let dummyData = [{
 {
   created: "05/25/2024",
   description: "new bug reported, doesn't work",
-  assignedTo: "USER_1",
+  assignedTo: "USER_2",
   status: "In Progress",
   comments: "this is a hard bug",
   pullReqNum: 22345,
@@ -47,25 +49,48 @@ let dummyData = [{
   createdBy: "ADMIN_1"
 }]
 
+
+let currentUser = {
+  id: 12345,
+  userName: 'USER_1'
+}
+
+
 import '@/app/styles/main.css';
 import { BugCard } from "@/components/bugCard";
-
-console.log(process.env.NEXT_PUBLIC_TEST_KEY);
+import { useState } from 'react';
 export default function Page() {
+  const [filter, setFilter] = useState('assigned');
   return (
     <div>
-      <div></div>
+      <div>
+        <h1>Welcome, Admin</h1>
+      </div>
       <div>
         <button>All Bugs</button>
         <button>Assigned Bugs</button>
         <button>Resolved Bugs</button>
       </div>
       {dummyData.map((bug) => {
-        return (
-          <div>
-            <BugCard bug={bug} display={true} />
-          </div>
-        );
+        console.log(filter)
+        if (filter=='all') {
+          return (
+            <BugCard bug={bug} display={{value: true}} key={{value: bug.id}}/>
+          );
+        } 
+        else if (filter=='in progress' && bug.status=='In Progress') {
+          return (
+            <BugCard bug={bug} display={{value: true}} key={{value: bug.id}}/>
+          );
+        } else if (filter=='assigned' && bug.assignedTo==currentUser.userName) {
+          return (
+            <BugCard bug={bug} display={{value: true}} key={{value: bug.id}}/>
+          );
+        } else {
+          return (
+            <BugCard bug={bug} display={false} key={bug.id}/>
+          );
+        }
       })}
     </div>
   );
