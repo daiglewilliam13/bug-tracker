@@ -1,4 +1,4 @@
-export function BugCard({bug}:any, {display}:boolean) {
+export function BugCard({bug}:any, display:boolean) {
 console.log(display)
         return (
             <div >
