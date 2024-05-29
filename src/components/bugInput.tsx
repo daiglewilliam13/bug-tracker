@@ -8,8 +8,8 @@ let initialBug = {
     assignedTo: "USER_2",
     status: "Resolved",
     comments: "this is a hard bug",
-    pullReqNum: 22345,
-    id: 2334423,
+    pullReqNum: undefined,
+    id: undefined,
     resolvedBy: "in progress",
     resolvedDate: "in progress",
     createdBy: "ADMIN_1"
@@ -24,7 +24,7 @@ export function BugInput() {
       console.log(bug)
     };
   
-  
+    const
     return (
     <div className='bug-card'>
       <form>
