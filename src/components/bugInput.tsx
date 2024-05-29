@@ -15,11 +15,11 @@ let initialBug = {
     createdBy: "ADMIN_1"
   }
 export function BugInput() {
-    const [bug, setBug] = useState({initialBug});
+    const [bug, setBug] = useState({...initialBug});
   
     const handleChange = (event:any) => {
         console.log(event.target)
-      const { name, value } = event.target.id;
+      const { name, value } = event.target;
       setBug({ ...bug, [name]: value });
       console.log(bug)
     };
@@ -29,19 +29,19 @@ export function BugInput() {
     <div className='bug-card'>
       <form>
         <label htmlFor="created">Created:</label>
-        <input type="text" name="created" id="created" value={initialBug.created} onChange={handleChange} disabled /> 
+        <input type="text" name="created" id="created" value={bug.created} onChange={handleChange} disabled /> 
 
         <label htmlFor="id">Id:</label>
-        <input type="text" name="id" id="id" value={initialBug.id} onChange={handleChange} disabled /> 
+        <input type="text" name="id" id="id" value={bug.id} onChange={handleChange} disabled /> 
 
         <label htmlFor="status">Status:</label>
-        <input type="text" name="status" id="status" value={initialBug.status} onChange={handleChange} />
+        <input type="text" name="status" id="status" value={bug.status} onChange={handleChange} />
 
         <label htmlFor="description">Description:</label>
-        <textarea name="description" id="description" value={initialBug.description} onChange={handleChange} />
+        <textarea name="description" id="description" value={bug.description} onChange={handleChange} />
 
         <label htmlFor="assignedTo">Assigned To:</label>
-        <input type="text" name="assignedTo" id="assignedTo" value={initialBug.assignedTo} onChange={handleChange} />
+        <input type="text" name="assignedTo" id="assignedTo" value={bug.assignedTo} onChange={handleChange} />
 
         <button type="submit">Submit</button>
       </form>

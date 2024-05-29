@@ -77,8 +77,7 @@ function generateBugData(numBugs: number) {
   return bugs;
 }
 
-let fakeBugData = [];
-fakeBugData= generateBugData(3);
+let fakeBugData = generateBugData(3);
 import '@/app/styles/main.css';
 import { BugCard } from "@/components/bugCard";
 import { BugInput } from "@/components/bugInput";
