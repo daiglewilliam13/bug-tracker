@@ -77,9 +77,11 @@ function generateBugData(numBugs: number) {
   return bugs;
 }
 
-
+let fakeBugData = [];
+fakeBugData= generateBugData(3);
 import '@/app/styles/main.css';
 import { BugCard } from "@/components/bugCard";
+import { BugInput } from "@/components/bugInput";
 import { useState, useEffect } from 'react';
 
 
@@ -88,10 +90,10 @@ export default function Page() {
   const changeFilter = (filter:string) => {
       setFilter(filter);
   }
-  let fakeBugData = generateBugData(50);
+  let mappedBugs = [];
+ 
   console.log(fakeBugData)
-  let map = [];
-  let mappedBugs = fakeBugData.map((bug) => {
+  mappedBugs = fakeBugData.map((bug) => {
     if (filter=='all') {
       return <BugCard bug={bug} key={bug.id} />
     } else if (filter=='assigned' && bug.assignedTo==currentUser.userName){
@@ -102,6 +104,11 @@ export default function Page() {
       return
     }
   })
+  
+  let userSorted = mappedBugs.sort((a:any,b:any)=>(a.created > b.created ? 1 :-1))
+
+
+
   return (
     <>
       <div>
@@ -115,6 +122,9 @@ export default function Page() {
         </div>
         <div>
           {mappedBugs}
+        </div>
+        <div>
+          <BugInput />
         </div>
       </div>
     </>
