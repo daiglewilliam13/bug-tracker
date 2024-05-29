@@ -1,5 +1,4 @@
-export function BugCard({bug}:any, display:boolean) {
-console.log(display)
+export function BugCard({bug, key}:any) {
         return (
             <div >
         <ul className="bug-card">
