@@ -24,7 +24,6 @@ export function BugInput() {
       console.log(bug)
     };
   
-    const
     return (
     <div className='bug-card'>
       <form>
