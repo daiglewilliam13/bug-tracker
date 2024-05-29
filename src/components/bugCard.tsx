@@ -1,4 +1,4 @@
-export function BugCard({bug, key}:any) {
+export function BugCard({bug}:any) {
         return (
             <div >
         <ul className="bug-card">
