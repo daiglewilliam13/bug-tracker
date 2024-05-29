@@ -36,20 +36,25 @@ export function BugInput() {
 
         <label htmlFor="status">Status:</label>
         <input type="text" name="status" id="status" value={bug.status} onChange={handleChange} />
-
+        
         <label htmlFor="description">Description:</label>
         <textarea name="description" id="description" value={bug.description} onChange={handleChange} />
-
+        
         <label htmlFor="assignedTo">Assigned To:</label>
         <input type="text" name="assignedTo" id="assignedTo" value={bug.assignedTo} onChange={handleChange} />
+        
         <label htmlFor="comments">Comments:</label>
         <input type="text" name="comments" id="comments" value={bug.comments} onChange={handleChange} />
+        
         <label htmlFor="pullReqNum">Pull Req#:</label>
         <input type="text" name="pullReqNum" id="pullReqNum" value={bug.pullReqNum} onChange={handleChange} />
+        
         <label htmlFor="resolvedBy">Resolved By:</label>
         <input type="text" name="resolvedBy" id="resolvedBy" value={bug.resolvedBy} onChange={handleChange} />
+        
         <label htmlFor="createdBy">Created By:</label>
         <input type="text" name="createdBy" id="createdBy" value={bug.createdBy} onChange={handleChange} disabled />
+        
         <button type="submit">Submit</button>
       </form>
     </div>
