@@ -55,6 +55,28 @@ let currentUser = {
   userName: 'USER_1'
 }
 
+function generateBugData(numBugs: number) {
+  const bugs = [];
+  const creators = ["USER_1", "USER_2", "USER_3"];
+
+  for (let i = 0; i < numBugs; i++) {
+    bugs.push({
+      created: "05/25/2024",
+      description: `New bug #${i+1}, details are TBD`,
+      assignedTo: creators[Math.floor(Math.random() * creators.length)],
+      status: "In Progress",
+      comments: "This bug needs investigation.",
+      pullReqNum: Math.floor(Math.random() * 100000) + 10000,
+      id: Math.floor(Math.random() * 10000000),
+      resolvedBy: "in progress",
+      resolvedDate: "in progress",
+      createdBy: creators[Math.floor(Math.random() * creators.length)],
+    });
+  }
+
+  return bugs;
+}
+
 
 import '@/app/styles/main.css';
 import { BugCard } from "@/components/bugCard";
@@ -66,8 +88,10 @@ export default function Page() {
   const changeFilter = (filter:string) => {
       setFilter(filter);
   }
+  let fakeBugData = generateBugData(50);
+  console.log(fakeBugData)
   let map = [];
-  let mappedBugs = dummyData.map((bug) => {
+  let mappedBugs = fakeBugData.map((bug) => {
     if (filter=='all') {
       return <BugCard bug={bug} key={bug.id} />
     } else if (filter=='assigned' && bug.assignedTo==currentUser.userName){
@@ -82,7 +106,7 @@ export default function Page() {
     <>
       <div>
         <div>
-          <h1>Welcome, Admin</h1>
+          <h1>Welcome, {currentUser.userName}</h1>
         </div>
         <div>
           <button onClick={()=> setFilter('all')}>All Bugs</button>
