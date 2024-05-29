@@ -78,20 +78,89 @@ function generateBugData(numBugs: number) {
 }
 
 let fakeBugData = generateBugData(3);
+
+async function getToken(url:any, apiKey:any) {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      key: apiKey,
+    }),
+  };
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      console.log(await response.json())
+      throw new Error(`API request failed with status ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error logging in:', error);
+    throw error; // Re-throw for handling in the calling code
+  }
+}
+
+async function findAll(accessToken:any) {
+  const url = process.env.NEXT_PUBLIC_FINDALL_URL;
+
+  const body = JSON.stringify({
+    dataSource: "social-media-clone",
+    database: "bug-tracker",
+    collection: "bugs",
+    filter: {},
+  });
+
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`,
+    },
+    body,
+  };
+
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      console.log(response.json())
+      throw new Error(`API request failed with status ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching document:', error);
+    throw error; // Re-throw for handling in the calling code
+  }
+}
+
+getToken(process.env.NEXT_PUBLIC_BASE_URL, process.env.NEXT_PUBLIC_DB_KEY)
+.then((response)=>{
+  console.log(response)
+  let token = response.access_token;
+findAll(token)
+.then((response)=>{
+  console.log(response)
+})
+});
+
+
 import '@/app/styles/main.css';
 import { BugCard } from "@/components/bugCard";
 import { BugInput } from "@/components/bugInput";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 
 export default function Page() {
   const [filter, setFilter] = useState('all');
+  const [bugs, setBugs] = useState({})
   const changeFilter = (filter:string) => {
-      setFilter(filter);
+    setFilter(filter);
   }
+
+
+
   let mappedBugs = [];
- 
-  console.log(fakeBugData)
   mappedBugs = fakeBugData.map((bug) => {
     if (filter=='all') {
       return <BugCard bug={bug} key={bug.id} />
