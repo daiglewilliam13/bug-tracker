@@ -1,3 +1,4 @@
+
 export function BugCard({bug}:any) {
         return (
             <div >
