@@ -61,7 +61,7 @@ export function BugInput({bugToEdit, editOptions}:any) {
                 <textarea name="description" id="description" value={bug.description} onChange={handleChange} />
 
                 <label htmlFor="assignedTo">Assigned To:</label>
-                <input type="text" name="assignedTo" id="assignedTo" value={bug.assignedTo} onChange={handleChange} />
+                <input type="text" name="assignedTo" id="assignedTo" value={bug.assignedTo} onChange={handleChange} disabled />
 
                 <label htmlFor="comments">Comments:</label>
                 <input type="text" name="comments" id="comments" value={bug.comments} onChange={handleChange} />

@@ -28,7 +28,6 @@ export function BugCard({ bug }: any) {
                     <li>Assigned To: {bug.assignedTo}</li>
                     <li>Comments: {bug.comments}</li>
                     <li>Pull Req Number: #{bug.pullReqNum}</li>
-                    <li>Resolved: {bug.resolvedDate}</li>
                     <li>Created By: {bug.createdBy}</li>
                 <button onClick={clickEditButton}>Click To Edit</button>
                 </ul>
