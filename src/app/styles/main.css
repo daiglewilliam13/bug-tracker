@@ -11,7 +11,7 @@
 
 }
 
-input, textarea {
+input, textarea, select {
     background-color: black;
     border: 2px solid white;
     border-radius: 5px;
