@@ -52,3 +52,25 @@ export async function getToken(url:any, apiKey:any) {
       throw error; // Re-throw for handling in the calling code
     }
   }
+
+export function generateBugData(numBugs: number) {
+    const bugs = [];
+    const creators = ["USER_1", "USER_2", "USER_3"];
+  
+    for (let i = 0; i < numBugs; i++) {
+      bugs.push({
+        created: "05/25/2024",
+        description: `New bug #${i+1}, details are TBD`,
+        assignedTo: creators[Math.floor(Math.random() * creators.length)],
+        status: "In Progress",
+        comments: "This bug needs investigation.",
+        pullReqNum: Math.floor(Math.random() * 100000) + 10000,
+        id: Math.floor(Math.random() * 10000000),
+        resolvedBy: "in progress",
+        resolvedDate: "in progress",
+        createdBy: creators[Math.floor(Math.random() * creators.length)],
+      });
+    }
+  
+    return bugs;
+  }
