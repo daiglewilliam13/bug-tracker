@@ -13,9 +13,25 @@ import { useState, useEffect } from 'react';
 
 export default function Page() {
   const [filter, setFilter] = useState('all');
-  const [bugs, setBugs] = useState([{}])
+  const [bugs, setBugs] = useState([{}]);
+  const [isLoading, setIsLoading] = useState(true);
   
   let mappedBugs = [];
+
+  const createBugList = (objArr:any) => {
+    let componentList = objArr.map((bug:any) => {
+      if (filter=='all') {
+        return <BugCard bug={bug} key={bug._id} />
+      } else if (filter=='assigned' && bug.assignedTo==currentUser.userName){
+        return <BugCard bug={bug} key={bug._id} />
+      } else if (filter=='resolved' && bug.status=='Resolved'){
+        return <BugCard bug={bug} key={bug._id} />;
+      } else {
+        return
+      }
+    })
+    return componentList
+  }
   mappedBugs = bugs.map((bug:any) => {
     if (filter=='all') {
       return <BugCard bug={bug} key={bug._id} />
@@ -32,18 +48,26 @@ export default function Page() {
 
 
 useEffect(()=>{
+
   getToken(process.env.NEXT_PUBLIC_BASE_URL, process.env.NEXT_PUBLIC_DB_KEY)
   .then((response)=>{
     let token = response.access_token;
   findAll(token)
   .then((response)=>{
     console.log(response.documents)
-    setBugs(response.documents)
+    setBugs(createBugList(response.documents))
+    setIsLoading(false)
   })
   });
-},[])
+},[isLoading])
+  if (isLoading == true) {
+    return (
+      <div>
+        Loading...
+      </div>
+    );
+  } else {
   return (
-    <>
       <div>
         <div>
           <h1>Welcome, {currentUser.userName}</h1>
@@ -54,12 +78,8 @@ useEffect(()=>{
           <button onClick={()=> setFilter('resolved')}>Resolved Bugs</button>
         </div>
         <div>
-          {mappedBugs}
-        </div>
-        <div>
-          <BugInput bugToEdit={bugs[0]}/>
+          {bugs}
         </div>
       </div>
-    </>
-  );
+  ); }
 }

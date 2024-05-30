@@ -66,7 +66,6 @@ export function generateBugData(numBugs: number) {
         comments: "This bug needs investigation.",
         pullReqNum: Math.floor(Math.random() * 100000) + 10000,
         id: Math.floor(Math.random() * 10000000),
-        resolvedBy: "in progress",
         resolvedDate: "in progress",
         createdBy: creators[Math.floor(Math.random() * creators.length)],
       });

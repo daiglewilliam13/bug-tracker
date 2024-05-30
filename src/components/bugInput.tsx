@@ -1,11 +1,24 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const options = ['In Progress', 'Unassigned', 'Resolved'];
+const creators = ["USER_1", "USER_2", "USER_3"];
 
-export function BugInput({bugToEdit}:any) {
-    const [bug, setBug] = useState(bugToEdit);
+const blankBug = {
+    
+    created: "05/25/2024",
+    description: `New bug, details are TBD`,
+    assignedTo: creators[Math.floor(Math.random() * creators.length)],
+    status: "In Progress",
+    comments: "This bug needs investigation.",
+    pullReqNum: Math.floor(Math.random() * 100000) + 10000,
+    resolvedDate: "in progress",
+    createdBy: "ADMIN_1",
+    _id: ""
+} 
+export function BugInput({bugToEdit, editOptions}) {
+    const [bug, setBug] = useState(blankBug);
     const [selectedValue, setSelectedValue] = useState(options[0])
     const handleChange = (event: any) => {
         console.log(event.target)
@@ -13,11 +26,18 @@ export function BugInput({bugToEdit}:any) {
         setBug({ ...bug, [name]: value });
         console.log(bug)
     };
-
+    console.log(editOptions)
     const handleDropChange = (event:any) => {
         setSelectedValue(event.target.value);
     };
-
+    useEffect(()=>{
+        if (editOptions?.createNew==true) {
+            setBug(blankBug)
+        } else {
+            setBug(bugToEdit)
+        }
+    },[])
+    if(editOptions.show == true){
     return (
         <div className='bug-card'>
             <form>
@@ -25,7 +45,7 @@ export function BugInput({bugToEdit}:any) {
                 <input type="text" name="created" id="created" value={bug.created} onChange={handleChange} disabled />
 
                 <label htmlFor="id">Id:</label>
-                <input type="text" name="id" id="id" value={bug.id} onChange={handleChange} disabled />
+                <input type="text" name="id" id="id" value={bug._id} onChange={handleChange} disabled />
 
                 <label htmlFor="status">Status:</label>
 
@@ -55,5 +75,10 @@ export function BugInput({bugToEdit}:any) {
                 <button type="submit">Submit</button>
             </form>
         </div>
+    ); 
+} else {
+    return(
+        <div></div>
     );
+}
 }
