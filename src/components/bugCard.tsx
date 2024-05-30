@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BugInput } from './bugInput';
 
 
@@ -9,14 +9,17 @@ export function BugCard({ bug }: any) {
     const [edit, setEdit] = useState(false);
     let editOptions = {
         createNew: false,
-        show: {edit},
+        show: edit,
     }
     const clickEditButton = (event:any) => {
-        console.log(click);
+        setEdit(edit=>!edit);
     }
+    useEffect(()=>{
+
+    },[edit])
     return (
         <div >
-            <button>Click</button>
+            <button onClick={clickEditButton}>Click</button>
             <div>
                 <ul className="bug-card">
                     <li>Created: {bug.created}</li>
