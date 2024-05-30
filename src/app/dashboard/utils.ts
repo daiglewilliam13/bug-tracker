@@ -22,7 +22,7 @@ export async function getToken(url:any, apiKey:any) {
   }
   
   export async function findAll(accessToken:any) {
-    const url = process.env.NEXT_PUBLIC_FINDALL_URL;
+    const url = process.env.NEXT_PUBLIC_FINDALL_URL || "nothing";
   
     const body = JSON.stringify({
       dataSource: "social-media-clone",
