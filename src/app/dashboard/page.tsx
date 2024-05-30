@@ -13,11 +13,9 @@ import { useState, useEffect } from 'react';
 
 export default function Page() {
   const [filter, setFilter] = useState('all');
-  const [bugs, setBugs] = useState([{}]);
+  const [bugs, setBugs] = useState();
   const [isLoading, setIsLoading] = useState(true);
   
-  let mappedBugs = [];
-
   const createBugList = (objArr:any) => {
     let componentList = objArr.map((bug:any) => {
       if (filter=='all') {
@@ -32,21 +30,7 @@ export default function Page() {
     })
     return componentList
   }
-  mappedBugs = bugs.map((bug:any) => {
-    if (filter=='all') {
-      return <BugCard bug={bug} key={bug._id} />
-    } else if (filter=='assigned' && bug.assignedTo==currentUser.userName){
-      return <BugCard bug={bug} key={bug._id} />
-    } else if (filter=='resolved' && bug.status=='Resolved'){
-      return <BugCard bug={bug} key={bug._id} />;
-    } else {
-      return
-    }
-  })
   
-  let userSorted = mappedBugs.sort((a:any,b:any)=>(a.created > b.created ? 1 :-1))
-
-
 useEffect(()=>{
 
   getToken(process.env.NEXT_PUBLIC_BASE_URL, process.env.NEXT_PUBLIC_DB_KEY)
@@ -55,7 +39,8 @@ useEffect(()=>{
   findAll(token)
   .then((response)=>{
     console.log(response.documents)
-    setBugs(createBugList(response.documents))
+    let mappedBugs = createBugList(response.documents)
+    setBugs(mappedBugs)
     setIsLoading(false)
   })
   });
@@ -67,6 +52,7 @@ useEffect(()=>{
       </div>
     );
   } else {
+  console.log(bugs)
   return (
       <div>
         <div>

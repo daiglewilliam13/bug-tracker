@@ -17,7 +17,7 @@ const blankBug = {
     createdBy: "ADMIN_1",
     _id: ""
 } 
-export function BugInput({bugToEdit, editOptions}) {
+export function BugInput({bugToEdit, editOptions}:any) {
     const [bug, setBug] = useState(blankBug);
     const [selectedValue, setSelectedValue] = useState(options[0])
     const handleChange = (event: any) => {
