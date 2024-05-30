@@ -95,13 +95,9 @@ import { AnyPtrRecord } from 'dns';
 export default function Page() {
   const [filter, setFilter] = useState('all');
   const [bugs, setBugs] = useState([{}])
-  const changeFilter = (filter:string) => {
-    setFilter(filter);
-  }
   
   let mappedBugs = [];
   mappedBugs = bugs.map((bug:any) => {
-    console.log(bug._id)
     if (filter=='all') {
       return <BugCard bug={bug} key={bug._id} />
     } else if (filter=='assigned' && bug.assignedTo==currentUser.userName){
@@ -142,7 +138,7 @@ useEffect(()=>{
           {mappedBugs}
         </div>
         <div>
-          <BugInput />
+          <BugInput bugToEdit={bugs[0]}/>
         </div>
       </div>
     </>

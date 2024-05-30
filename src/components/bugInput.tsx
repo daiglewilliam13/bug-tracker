@@ -2,23 +2,11 @@
 
 import { useState } from 'react';
 
-let initialBug = {
-    created: "05/25/2024",
-    description: "new bug reported, doesn't work",
-    assignedTo: "USER_2",
-    status: "Resolved",
-    comments: "this is a hard bug",
-    pullReqNum: undefined,
-    id: undefined,
-    resolvedDate: "in progress",
-    createdBy: "ADMIN_1"
-}
 const options = ['In Progress', 'Unassigned', 'Resolved'];
 
-export function BugInput() {
-    const [bug, setBug] = useState({ ...initialBug });
+export function BugInput({bugToEdit}:any) {
+    const [bug, setBug] = useState(bugToEdit);
     const [selectedValue, setSelectedValue] = useState(options[0])
-
     const handleChange = (event: any) => {
         console.log(event.target)
         const { name, value } = event.target;
