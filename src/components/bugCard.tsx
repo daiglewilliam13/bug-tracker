@@ -4,7 +4,7 @@ export function BugCard({bug}:any) {
             <div >
         <ul className="bug-card">
             <li>Created: {bug.created}</li>
-            <li>Id: {bug.id}</li>
+            <li>Id: {bug._id}</li>
             <li>Status: {bug.status}</li>
             <li>Description: {bug.description}</li>
             <li>Assigned To: {bug.assignedTo}</li>
