@@ -8,14 +8,19 @@ let currentUser = {
 import '@/app/styles/main.css';
 import { BugCard } from "@/components/bugCard";
 import { BugInput } from "@/components/bugInput";
-import { getToken, findAll } from "@/app/dashboard/utils";
+import { getToken, findAll, blankBug } from "@/app/dashboard/utils";
 import { useState, useEffect } from 'react';
 
 export default function Page() {
   const [filter, setFilter] = useState('all');
   const [bugs, setBugs] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [addBug, setAddBug] = useState(false);
   
+  let editOptions = {
+    createNew: true,
+    show: addBug
+  }
   const createBugList = (objArr:any) => {
     let componentList = objArr.map((bug:any) => {
       if (filter=='all') {
@@ -31,6 +36,7 @@ export default function Page() {
     return componentList
   }
   
+
 useEffect(()=>{
 
   getToken(process.env.NEXT_PUBLIC_BASE_URL, process.env.NEXT_PUBLIC_DB_KEY)
@@ -65,6 +71,9 @@ useEffect(()=>{
         </div>
         <div>
           {bugs}
+        </div>
+        <div>
+          <BugInput bugToEdit={blankBug} editOptions={editOptions} />
         </div>
       </div>
   ); }

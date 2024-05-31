@@ -1,22 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-
+import { blankBug } from '@/app/dashboard/utils';
 const options = ['In Progress', 'Unassigned', 'Resolved'];
-const creators = ["USER_1", "USER_2", "USER_3"];
 
-const blankBug = {
-    
-    created: "05/25/2024",
-    description: `New bug, details are TBD`,
-    assignedTo: creators[Math.floor(Math.random() * creators.length)],
-    status: "In Progress",
-    comments: "This bug needs investigation.",
-    pullReqNum: Math.floor(Math.random() * 100000) + 10000,
-    resolvedDate: "in progress",
-    createdBy: "ADMIN_1",
-    _id: ""
-} 
 export function BugInput({bugToEdit, editOptions}:any) {
     const [bug, setBug] = useState(blankBug);
     const [selectedValue, setSelectedValue] = useState(options[0])
