@@ -35,7 +35,9 @@ export default function Page() {
     })
     return componentList
   }
-  
+  const changeEditStatus = () => {
+    setAddBug(addBug => !addBug);
+  }
 
 useEffect(()=>{
 
@@ -68,12 +70,13 @@ useEffect(()=>{
           <button onClick={()=> setFilter('all')}>All Bugs</button>
           <button onClick={()=> setFilter('assigned')}>Assigned Bugs</button>
           <button onClick={()=> setFilter('resolved')}>Resolved Bugs</button>
-        </div>
-        <div>
-          {bugs}
+          <button onClick={changeEditStatus}>Add Bug</button>
         </div>
         <div>
           <BugInput bugToEdit={blankBug} editOptions={editOptions} />
+        </div>
+        <div>
+          {bugs}
         </div>
       </div>
   ); }
