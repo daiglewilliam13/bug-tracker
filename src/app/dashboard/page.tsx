@@ -14,8 +14,10 @@ import { useState, useEffect } from 'react';
 export default function Page() {
   const [filter, setFilter] = useState('all');
   const [bugs, setBugs] = useState();
-  const [isLoading, setIsLoading] = useState(true);
   const [addBug, setAddBug] = useState(false);
+  const [user, setUser] = useState(currentUser);
+  const [allUsers, setAllUsers] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   
   let editOptions = {
     createNew: true,
@@ -39,12 +41,15 @@ export default function Page() {
     setAddBug(addBug => !addBug);
   }
 
+  const sortBugs = () => {
+    createBugList(bugs)
+  }
+  
 useEffect(()=>{
-
   getToken(process.env.NEXT_PUBLIC_BASE_URL, process.env.NEXT_PUBLIC_DB_KEY)
   .then((response)=>{
     let token = response.access_token;
-  findAll(token)
+  findAll(token, "bugs")
   .then((response)=>{
     console.log(response.documents)
     let mappedBugs = createBugList(response.documents)
@@ -52,7 +57,7 @@ useEffect(()=>{
     setIsLoading(false)
   })
   });
-},[isLoading])
+},[isLoading, filter])
   if (isLoading == true) {
     return (
       <div>

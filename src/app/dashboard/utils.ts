@@ -1,3 +1,6 @@
+import { BugCard } from "@/components/bugCard";
+
+
 export async function getToken(url:any, apiKey:any) {
     const options = {
       method: 'POST',
@@ -21,13 +24,13 @@ export async function getToken(url:any, apiKey:any) {
     }
   }
   
-  export async function findAll(accessToken:any) {
+  export async function findAll(accessToken:any, collName:string) {
     const url = process.env.NEXT_PUBLIC_FINDALL_URL || "nothing";
   
     const body = JSON.stringify({
       dataSource: "social-media-clone",
       database: "bug-tracker",
-      collection: "bugs",
+      collection: collName,
       filter: {},
     });
   
@@ -73,6 +76,8 @@ export function generateBugData(numBugs: number) {
   
     return bugs;
   }
+
+  
   const creators = ["USER_1", "USER_2", "USER_3"];
   export const blankBug = {
     
