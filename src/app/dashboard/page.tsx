@@ -41,23 +41,23 @@ export default function Page() {
     setAddBug(addBug => !addBug);
   }
 
-  const sortBugs = () => {
-    createBugList(bugs)
+  const sortBugs = (arr:any) => {
+    createBugList(arr)
   }
   
 useEffect(()=>{
-  getToken(process.env.NEXT_PUBLIC_BASE_URL, process.env.NEXT_PUBLIC_DB_KEY)
+getToken(process.env.NEXT_PUBLIC_BASE_URL, process.env.NEXT_PUBLIC_DB_KEY)
+.then((response)=>{
+  let token = response.access_token;
+  findAll(token, 'bugs')
   .then((response)=>{
-    let token = response.access_token;
-  findAll(token, "bugs")
-  .then((response)=>{
-    console.log(response.documents)
-    let mappedBugs = createBugList(response.documents)
+    let foundBugs = response.documents
+    let mappedBugs = createBugList(foundBugs);
     setBugs(mappedBugs)
     setIsLoading(false)
-  })
-  });
-},[isLoading, filter])
+  })  
+})
+},[filter])
   if (isLoading == true) {
     return (
       <div>
@@ -65,7 +65,6 @@ useEffect(()=>{
       </div>
     );
   } else {
-  console.log(bugs)
   return (
       <div>
         <div>
