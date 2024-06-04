@@ -6,14 +6,13 @@ import { BugInput } from "@/components/bugInput";
 import { getToken, findAll, blankBug } from "@/app/dashboard/utils";
 import { useState, useEffect } from 'react';
 
-export function BugList({currentUser}:any) {
+export function BugList({currentUser}:any, {list}:any) {
   const [filter, setFilter] = useState('all');
-  const [bugs, setBugs] = useState();
+  const [bugs, setBugs] = useState(list);
+  const [mappedBugs, setMappedBugs] = useState();
   const [addBug, setAddBug] = useState(false);
   const [user, setUser] = useState(currentUser);
-  const [allUsers, setAllUsers] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedUser, setSelectedUser] = useState();
   
   let editOptions = {
     createNew: true,
@@ -27,7 +26,7 @@ export function BugList({currentUser}:any) {
     let componentList = objArr.map((bug:any) => {
       if (filter=='all') {
         return <BugCard bug={bug} key={bug._id} />
-      } else if (filter=='assigned' && bug.assignedTo==user._id){
+      } else if (filter=='assigned' && bug.assignedTo==currentUser._id){
         return <BugCard bug={bug} key={bug._id} />
       } else if (filter=='resolved' && bug.status=='Resolved'){
         return <BugCard bug={bug} key={bug._id} />;
@@ -40,33 +39,18 @@ export function BugList({currentUser}:any) {
   const changeEditStatus = () => {
     setAddBug(addBug => !addBug);
   }
-
-  const handleUserChange = (event:any) => {
-    setSelectedUser(event.target.value)
-
-  }
-
-  const getUsers = async (accessToken:string) => {
-    
-    let foundUsers = findAll(accessToken,'users')
-    .then((response)=>{
-      return response.documents
-    })
-    return foundUsers;
-  }
-
+  let formattedBugList = list;
 useEffect(()=>{
   
-  getToken(tokenUrl, key).then((response)=>{
-    let token = response.access_token
-    findAll(token, 'bugs').then((response)=>{
-      console.log("useEffect:", allUsers)
-      let foundBugs = response.documents
-      let mappedBugs = createBugList(foundBugs);
-      setBugs(mappedBugs)
-      setIsLoading(false)
-    })
-})
+//   getToken(tokenUrl, key).then((response)=>{
+//     let token = response.access_token
+//     findAll(token, 'bugs').then((response)=>{
+//       let foundBugs = response.documents
+//       let mappedBugs = createBugList(foundBugs);
+//       setIsLoading(false)
+//     })
+// })
+
 },[filter])
   if (isLoading == true) {
     return (
@@ -87,7 +71,7 @@ useEffect(()=>{
           <BugInput bugToEdit={blankBug} editOptions={editOptions} />
         </div>
         <div>
-          {bugs}
+          {mappedBugs}
         </div>
       </div>
   ); }

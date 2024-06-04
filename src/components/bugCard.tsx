@@ -5,7 +5,7 @@ import { BugInput } from './bugInput';
 
 
 
-export function BugCard({ bug }: any, {allUsers}:any) {
+export function BugCard({ bug }: any) {
     const [edit, setEdit] = useState(false);
     let editOptions = {
         createNew: false,
@@ -14,7 +14,6 @@ export function BugCard({ bug }: any, {allUsers}:any) {
     const clickEditButton = (event:any) => {
         setEdit(edit=>!edit);
     }
-    console.log("all users:", allUsers )
     useEffect(()=>{
 
     },[edit])

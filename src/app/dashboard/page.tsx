@@ -1,7 +1,6 @@
 'use client';
 
 import '@/app/styles/main.css';
-import { BugCard } from "@/components/bugCard";
 import { BugInput } from "@/components/bugInput";
 import { BugList } from "@/components/BugList";
 import { getToken, findAll, blankBug } from "@/app/dashboard/utils";
@@ -24,38 +23,19 @@ export default function Page() {
   let key = process.env.NEXT_PUBLIC_DB_KEY;
   let tokenUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-  const createBugList = (objArr:any, userList:any) => {
-    let componentList = objArr.map((bug:any) => {
-      if (filter=='all') {
-        return <BugCard bug={bug} key={bug._id} />
-      } else if (filter=='assigned' && bug.assignedTo==user._id){
-        return <BugCard bug={bug} key={bug._id} />
-      } else if (filter=='resolved' && bug.status=='Resolved'){
-        return <BugCard bug={bug} key={bug._id} />;
-      } else {
-        return
-      }
-    })
-    return componentList
-  }
-  const changeEditStatus = () => {
-    setAddBug(addBug => !addBug);
-  }
-
   const handleUserChange = (event:any) => {
     setSelectedUser(event.target.value)
-
+    let newUser = allUsers.find((obj:any)=>obj._id==event.target.value)
+    setUser(newUser)
   }
 
-  const getUsers = async (accessToken:string) => {
-    
+  const getUsers = async (accessToken:string) => {  
     let foundUsers = findAll(accessToken,'users')
     .then((response)=>{
       return response.documents
     })
     return foundUsers;
   }
-
 useEffect(()=>{
   
   getToken(tokenUrl,key).then((response)=>{
@@ -69,10 +49,7 @@ useEffect(()=>{
   getToken(tokenUrl, key).then((response)=>{
     let token = response.access_token
     findAll(token, 'bugs').then((response)=>{
-      console.log("useEffect:", allUsers)
-      let foundBugs = response.documents
-      let mappedBugs = createBugList(foundBugs, allUsers);
-      setBugs(mappedBugs)
+      setBugs(response.documents)
       setIsLoading(false)
     })
   })
@@ -90,7 +67,7 @@ useEffect(()=>{
         <div>
         Welcome. Select User: <select value={selectedUser} onChange={handleUserChange}> 
                     {allUsers.map((user:any) => (
-                        <option key={user._id} value={user.username}>
+                        <option key={user._id} value={user._id}>
                             {user.username}: {user._id}
                         </option>
                     ))}
