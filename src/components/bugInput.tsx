@@ -13,7 +13,6 @@ export function BugInput({bugToEdit, editOptions}:any) {
         setBug({ ...bug, [name]: value });
         console.log(bug)
     };
-    console.log(editOptions)
     const handleDropChange = (event:any) => {
         setSelectedValue(event.target.value);
     };
