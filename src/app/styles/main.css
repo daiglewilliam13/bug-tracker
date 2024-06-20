@@ -16,3 +16,16 @@ input, textarea, select {
     border: 2px solid white;
     border-radius: 5px;
 }
+
+button {
+    border: 2px solid white;
+    border-radius: 3px;
+    margin: .5rem;
+    padding: .5rem 1rem;
+    transition: 100ms;
+}
+
+button:hover, .highlight {
+    background-color: white;
+    color: black;
+}
