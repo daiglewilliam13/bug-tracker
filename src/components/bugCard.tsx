@@ -5,7 +5,7 @@ import { BugInput } from './bugInput';
 
 
 
-export function BugCard({ bug }: any) {
+export function BugCard({ bug, currentUser, allUsers }: any) {
     const [edit, setEdit] = useState(false);
     let editOptions = {
         createNew: false,
@@ -33,7 +33,7 @@ export function BugCard({ bug }: any) {
                 </ul>
             </div>
             <div>
-                <BugInput bugToEdit={bug} editOptions={editOptions} />
+                <BugInput bugToEdit={bug} editOptions={editOptions} currentUser={currentUser} allUsers={allUsers}/>
             </div>
         </div>
     );

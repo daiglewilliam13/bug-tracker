@@ -1,12 +1,12 @@
 'use client';
 
+import { blankBug } from '@/app/dashboard/utils';
 import '@/app/styles/main.css';
 import { BugCard } from "@/components/bugCard";
 import { BugInput } from "@/components/bugInput";
-import { getToken, findAll, blankBug } from "@/app/dashboard/utils";
 import { useState, useEffect } from 'react';
 
-export function BugList({currentUser, list}:any) {
+export function BugList({currentUser, list, allUsers}:any) {
   const [filter, setFilter] = useState('assigned');
   const [addBug, setAddBug] = useState(false);
 
@@ -18,11 +18,11 @@ export function BugList({currentUser, list}:any) {
   const createBugList = (objArr:any) => {
     let componentList = objArr.map((bug:any) => {
       if (filter=='all') {
-        return <BugCard bug={bug} key={bug._id} />
+        return <BugCard bug={bug} key={bug._id} currentUser={currentUser} allUsers={allUsers}/>
       } else if (filter=='assigned' && bug.assignedTo==currentUser._id){
-        return <BugCard bug={bug} key={bug._id} />
+        return <BugCard bug={bug} key={bug._id} currentUser={currentUser} allUsers={allUsers}/>
       } else if (filter=='resolved' && bug.status=='Resolved'){
-        return <BugCard bug={bug} key={bug._id} />;
+        return <BugCard bug={bug} key={bug._id} currentUser={currentUser} allUsers={allUsers}/>;
       } else {
         return
       }
@@ -55,7 +55,7 @@ if (list){
           { adminStatus ? <button id='add' className={'filter-button'} onClick={changeEditStatus}>Add Bug</button> : <div></div> }
         </div>
         <div>
-          <BugInput bugToEdit={blankBug} editOptions={editOptions} />
+          <BugInput bugToEdit={blankBug} editOptions={editOptions} currentUser={currentUser} />
         </div>
         <div>
           {formattedBugList}

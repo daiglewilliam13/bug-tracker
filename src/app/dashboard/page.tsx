@@ -71,10 +71,10 @@ export default function Page() {
           </select>
         </div>
         <div>
-          <BugInput bugToEdit={blankBug} editOptions={editOptions} />
+          <BugInput bugToEdit={blankBug} editOptions={editOptions} currentUser={user} allUsers={allUsers}/>
         </div>
         <div>
-          <BugList currentUser={user} list={bugs} />
+          <BugList currentUser={user} list={bugs} allUsers={allUsers}/>
         </div>
       </div>
     );
