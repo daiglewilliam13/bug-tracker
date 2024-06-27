@@ -22,11 +22,6 @@ export default function Page() {
   let key = process.env.NEXT_PUBLIC_DB_KEY;
   let tokenUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-  const handleUserChange = (event: any) => {
-    setSelectedUser(event.target.value)
-    let newUser = allUsers.find((obj: any) => obj._id == event.target.value)
-    setUser(newUser)
-  }
 
   const getUsers = async (accessToken: string) => {
     let foundUsers = findAll(accessToken, 'users')
@@ -43,7 +38,7 @@ export default function Page() {
         let foundUsers = response;
         setAllUsers(foundUsers)
         setUser(foundUsers[0])
-
+        
         findAll(token, 'bugs').then((response) => {
           let foundBugs = response.documents
           setBugs(foundBugs);
@@ -62,13 +57,7 @@ export default function Page() {
     return (
       <div>
         <div>
-          Welcome. Select User: <select value={selectedUser} onChange={handleUserChange}>
-            {allUsers.map((user: any) => (
-              <option key={user._id} value={user._id}>
-                {user.username}: {user._id}
-              </option>
-            ))}
-          </select>
+          Welcome, Admin
         </div>
         <div>
           <BugInput bugToEdit={blankBug} editOptions={editOptions} currentUser={user} allUsers={allUsers}/>

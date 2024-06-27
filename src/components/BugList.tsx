@@ -55,7 +55,7 @@ if (list){
           { adminStatus ? <button id='add' className={'filter-button'} onClick={changeEditStatus}>Add Bug</button> : <div></div> }
         </div>
         <div>
-          <BugInput bugToEdit={blankBug} editOptions={editOptions} currentUser={currentUser} />
+          <BugInput bugToEdit={blankBug} editOptions={editOptions} currentUser={currentUser} allUsers={allUsers}/>
         </div>
         <div>
           {formattedBugList}
