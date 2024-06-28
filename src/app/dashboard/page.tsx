@@ -38,7 +38,7 @@ export default function Page() {
         let foundUsers = response;
         setAllUsers(foundUsers)
         setUser(foundUsers[0])
-        
+        sessionStorage.setItem("token", token)
         findAll(token, 'bugs').then((response) => {
           let foundBugs = response.documents
           setBugs(foundBugs);

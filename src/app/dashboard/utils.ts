@@ -23,7 +23,55 @@ export async function getToken(url:any, apiKey:any) {
       throw error; // Re-throw for handling in the calling code
     }
   }
-  
+
+  export async function insertOne(addOrUpdate: string, accessToken:any, collName: string, bugToSubmit:any) {
+    let url, body;
+    if(addOrUpdate == "add") {
+      url = process.env.NEXT_PUBLIC_INSERT_URL || "nothing";
+      body = JSON.stringify({
+        dataSource: "social-media-clone",
+        database: "bug-tracker",
+        collection: collName,
+        document: bugToSubmit,
+      });
+    } else {
+      url = process.env.NEXT_PUBLIC_UPDATE_URL || "nothing";
+      body = JSON.stringify({
+        dataSource: "social-media-clone",
+        database: "bug-tracker",
+        collection: collName,
+        filter: {
+          _id: { $oid: bugToSubmit._id}
+        },
+        update: {
+          set: bugToSubmit
+        }
+      });
+    } 
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`,
+      },
+      body,
+    };
+
+    try {
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        console.log(response.json())
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching document:', error);
+      throw error; // Re-throw for handling in the calling code
+    }
+  }
+
+
   export async function findAll(accessToken:any, collName:string) {
     const url = process.env.NEXT_PUBLIC_FINDALL_URL || "nothing";
   
@@ -78,16 +126,14 @@ export function generateBugData(numBugs: number) {
   }
 
   
-  const creators = ["USER_1", "USER_2", "USER_3"];
   export const blankBug = {
-    
+    _id: "",
     created: "05/25/2024",
     description: `New bug, details are TBD`,
-    assignedTo: creators[Math.floor(Math.random() * creators.length)],
+    createdBy: "",
     status: "In Progress",
     comments: "This bug needs investigation.",
-    pullReqNum: Math.floor(Math.random() * 100000) + 10000,
+    pullReqNum: 0,
     resolvedDate: "in progress",
-    createdBy: "ADMIN_1",
-    _id: ""
+    assignedTo: "",
 } 
