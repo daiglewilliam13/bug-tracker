@@ -12,14 +12,14 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
     let token = sessionStorage.getItem('token');
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        // let response = await insertOne("add", token, "bugs", bug);
-        // console.log(await response.json());
         let bugToSubmit=bug;
         if (editOptions?.createNew==true) {
             bugToSubmit.createdBy=currentUser._id;
             bugToSubmit.assignedTo=assignedToUser._id;
         }
         console.log(bugToSubmit);
+        let response = await insertOne("add", token, "bugs", bug);
+        console.log(await response);
     }
     const handleChange = (event: any) => {
         console.log(event.target)
