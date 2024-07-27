@@ -14,7 +14,6 @@ export function BugList({currentUser, list, allUsers}:any) {
     createNew: true,
     show: addBug
   }
-
   const createBugList = (objArr:any) => {
     let componentList = objArr.map((bug:any) => {
       if (filter=='all') {

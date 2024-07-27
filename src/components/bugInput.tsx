@@ -7,7 +7,7 @@ const options = ['In Progress', 'Unassigned', 'Resolved'];
 export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
     const [bug, setBug] = useState(blankBug);
     const [selectedValue, setSelectedValue] = useState(options[0])
-    const [assignedToUser, setAssignedToUser] = useState(allUsers[1])
+    const [assignedToUser, setAssignedToUser] = useState(allUsers[1]._id)
 
     let token = sessionStorage.getItem('token');
     const handleSubmit = async (event: any) => {
@@ -15,11 +15,12 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
         let bugToSubmit=bug;
         if (editOptions?.createNew==true) {
             bugToSubmit.createdBy={ "$oid": currentUser._id};
-            bugToSubmit.assignedTo={ "$oid": assignedToUser._id};
+            bugToSubmit.assignedTo={ "$oid": assignedToUser};
         }
         let response = await insertOne("add", token, "bugs", bug);
         console.log("promise result: ", await response);
     }
+
     const handleChange = (event: any) => {
         console.log(event.target)
         const { name, value } = event.target;
@@ -30,8 +31,8 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
     };
 
     const handleUserChange = (event:any) =>{
-
         setAssignedToUser(event.target.value)
+        console.log(assignedToUser)
     }
     let today = new Date();
 
@@ -78,7 +79,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
 
                 {
                 currentUser.isAdmin ==true ? 
-                <select value={assignedToUser} onChange={handleUserChange}>
+                <select value={assignedToUser._id} onChange={handleUserChange}>
                 {allUsers.map((user:any) => (
                     <option key={user._id} value={user._id}>
                         {user.username}

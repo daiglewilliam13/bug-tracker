@@ -12,7 +12,6 @@ export default function Page() {
   const [user, setUser] = useState();
   const [allUsers, setAllUsers] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedUser, setSelectedUser] = useState();
 
   let editOptions = {
     createNew: true,
@@ -34,11 +33,11 @@ export default function Page() {
 
     getToken(tokenUrl, key).then((response) => {
       let token = response.access_token;
+      sessionStorage.setItem("token", token)
       getUsers(token).then((response) => {
         let foundUsers = response;
         setAllUsers(foundUsers)
         setUser(foundUsers[0])
-        sessionStorage.setItem("token", token)
         findAll(token, 'bugs').then((response) => {
           let foundBugs = response.documents
           setBugs(foundBugs);
