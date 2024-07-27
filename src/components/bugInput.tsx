@@ -13,7 +13,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         let bugToSubmit=bug;
-        bugToSubmit.assignedTo={ "$oid": assignedToUser};
+        bugToSubmit.assignedTo={ "$oid": assignedToUser._id};
         if (editOptions?.createNew==true) {
 
             bugToSubmit.createdBy={ "$oid": currentUser._id};
@@ -23,7 +23,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
 
         } else if (editOptions?.createNew==false) {
             let updatesToSubmit = {
-                "assignedTo" : { "$oid": assignedToUser},
+                "assignedTo" : { "$oid": assignedToUser._id},
                 "description": bug.description,
                 "comments": bug.comments,
                 "pullReqNum": bug.pullReqNum,
