@@ -1,6 +1,3 @@
-import { BugCard } from "@/components/bugCard";
-
-
 export async function getToken(url:any, apiKey:any) {
     const options = {
       method: 'POST',
