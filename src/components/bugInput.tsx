@@ -36,7 +36,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
         } else if (editOptions?.createNew==false) {
 
             let updatesToSubmit = {
-                assignedTo : assignedToUser._id,
+                assignedTo : assignedToUser,
                 description : bug.description,
                 comments: bug.comments,
                 pullReqNum: bug.pullReqNum,
