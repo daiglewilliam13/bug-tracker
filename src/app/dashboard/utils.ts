@@ -41,10 +41,10 @@ export async function getToken(url:any, apiKey:any) {
         database: "bug-tracker",
         collection: collName,
         filter: {
-          _id: { $oid: bugToSubmit._id}
+          _id: { $oid: addOrUpdate}
         },
         update: {
-          set: bugToSubmit
+          $set: bugToSubmit
         }
       });
     } 
