@@ -11,6 +11,7 @@ export function BugCard({ bug, currentUser, allUsers }: any) {
         createNew: false,
         show: edit,
     }
+    console.log(bug)
     const clickEditButton = (event:any) => {
         setEdit(edit=>!edit);
     }

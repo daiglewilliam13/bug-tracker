@@ -7,7 +7,7 @@ const options = ['In Progress', 'Unassigned', 'Resolved'];
 export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
     const [bug, setBug] = useState(blankBug);
     const [selectedValue, setSelectedValue] = useState(options[0])
-    const [assignedToUser, setAssignedToUser] = useState(allUsers[1]._id)
+    const [assignedToUser, setAssignedToUser] = useState(allUsers[0]._id)
     const [isLoading, setIsLoading] = useState(false);
 
     let token = sessionStorage.getItem('token');
@@ -19,30 +19,34 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
     }
 
     const handleSubmit = async (event: any) => {
-        setIsLoading(true);
         event.preventDefault();
+        setIsLoading(true);
         let bugToSubmit=bug;
-        bugToSubmit.assignedTo={ "$oid": assignedToUser._id};
         if (editOptions?.createNew==true) {
 
+            bugToSubmit.assignedTo={ "$oid": assignedToUser};
             bugToSubmit.createdBy={ "$oid": currentUser._id};
             bugToSubmit.created=dateString;
-            let response = await insertOne("add", token, "bugs", bug);
-            console.log("promise result: ", await response);
+
+            insertOne("add", token, "bugs", bugToSubmit).then((response)=>{
+                console.log("promise result: ", response);
+                setIsLoading(false);
+            });
 
         } else if (editOptions?.createNew==false) {
 
             let updatesToSubmit = {
-                assignedTo : { "$oid": assignedToUser._id},
+                assignedTo : assignedToUser._id,
                 description : bug.description,
                 comments: bug.comments,
                 pullReqNum: bug.pullReqNum,
                 status: selectedValue,
             }
 
-            let response = await insertOne(bugToEdit._id, token, "bugs", updatesToSubmit);
-            console.log("promise result: ", await response);
-
+            insertOne(bugToEdit._id, token, "bugs", updatesToSubmit).then((response)=>{
+                console.log("promise result: ", response);
+                setIsLoading(false);
+            });
         }
     }
 
@@ -69,10 +73,12 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
     useEffect(()=>{
         if (editOptions?.createNew==true) {
             setBug(blankBug)
+            console.log(blankBug)
         } else {
             setBug(bugToEdit)
             setSelectedValue(bugToEdit.status)
             setAssignedToUser(allUsers.find(user => user._id == bugToEdit.assignedTo));
+            console.log(bugToEdit)
         }
     },[isLoading])
 
