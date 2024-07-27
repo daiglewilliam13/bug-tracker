@@ -20,7 +20,39 @@ export async function getToken(url:any, apiKey:any) {
       throw error; // Re-throw for handling in the calling code
     }
   }
+  export async function deleteOne(deleteId: string, accessToken:any, collName: string) {
+    let url, body;
+    url = process.env.NEXT_PUBLIC_DELETE_URL || "nothing";
+    body = JSON.stringify({
+      dataSource: "social-media-clone",
+      database: "bug-tracker",
+      collection: collName,
+      filter: {
+        _id: { $oid: deleteId}
+      },
+    });
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`,
+      },
+      body,
+    };
 
+    try {
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        console.log(response.json())
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching document:', error);
+      throw error; // Re-throw for handling in the calling code
+    }
+
+}
   export async function insertOne(addOrUpdate: string, accessToken:any, collName: string, bugToSubmit:any) {
     let url, body;
     if(addOrUpdate == "add") {

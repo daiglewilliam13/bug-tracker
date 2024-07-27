@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import { blankBug, insertOne } from '@/app/dashboard/utils';
+import { blankBug, insertOne, deleteOne } from '@/app/dashboard/utils';
 const options = ['In Progress', 'Unassigned', 'Resolved'];
 
 export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
@@ -10,7 +10,14 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
     const [assignedToUser, setAssignedToUser] = useState(allUsers[1]._id)
 
     let token = sessionStorage.getItem('token');
+
+    const handleDelete = async (event: any) =>{
+        event.preventDefault();
+        let response = await deleteOne(bug._id, token, "bugs");
+        console.log(await response)
+    }
     const handleSubmit = async (event: any) => {
+        console.log(event)
         event.preventDefault();
         let bugToSubmit=bug;
         bugToSubmit.assignedTo={ "$oid": assignedToUser};
@@ -21,9 +28,9 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
             bugToSubmit.created=dateString;
             let response = await insertOne("add", token, "bugs", bug);
             console.log("promise result: ", await response);
-            console.log(assignedToUser)
-            console.log(bugToSubmit)
+
         } else if (editOptions?.createNew==false) {
+
             let updatesToSubmit = {
                 assignedTo : { "$oid": assignedToUser},
                 description : bug.description,
@@ -31,9 +38,10 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
                 pullReqNum: bug.pullReqNum,
                 status: selectedValue,
             }
+            
             let response = await insertOne(bugToEdit._id, token, "bugs", updatesToSubmit);
             console.log("promise result: ", await response);
-            console.log(updatesToSubmit);
+
         }
     }
 
@@ -116,6 +124,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
 
                 <button onClick={handleSubmit}>Save</button>
             </form>
+            {editOptions.createNew ==true? <div></div> : <button onClick={handleDelete}>Delete</button> }
         </div>
     ); 
 
