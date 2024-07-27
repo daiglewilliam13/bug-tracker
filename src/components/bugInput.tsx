@@ -8,6 +8,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
     const [bug, setBug] = useState(blankBug);
     const [selectedValue, setSelectedValue] = useState(options[0])
     const [assignedToUser, setAssignedToUser] = useState(allUsers[1]._id)
+    const [isLoading, setIsLoading] = useState(false);
 
     let token = sessionStorage.getItem('token');
 
@@ -16,12 +17,12 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
         let response = await deleteOne(bug._id, token, "bugs");
         console.log(await response)
     }
+
     const handleSubmit = async (event: any) => {
-        console.log(event)
+        setIsLoading(true);
         event.preventDefault();
         let bugToSubmit=bug;
-        bugToSubmit.assignedTo={ "$oid": assignedToUser};
-
+        bugToSubmit.assignedTo={ "$oid": assignedToUser._id};
         if (editOptions?.createNew==true) {
 
             bugToSubmit.createdBy={ "$oid": currentUser._id};
@@ -32,13 +33,13 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
         } else if (editOptions?.createNew==false) {
 
             let updatesToSubmit = {
-                assignedTo : { "$oid": assignedToUser},
+                assignedTo : { "$oid": assignedToUser._id},
                 description : bug.description,
                 comments: bug.comments,
                 pullReqNum: bug.pullReqNum,
                 status: selectedValue,
             }
-            
+
             let response = await insertOne(bugToEdit._id, token, "bugs", updatesToSubmit);
             console.log("promise result: ", await response);
 
@@ -73,7 +74,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
             setSelectedValue(bugToEdit.status)
             setAssignedToUser(allUsers.find(user => user._id == bugToEdit.assignedTo));
         }
-    },[])
+    },[isLoading])
 
     if(editOptions.show == true){
 
@@ -122,9 +123,9 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
                 <label htmlFor="createdBy">Created By:</label>
                 <input type="text" name="createdBy" id="createdBy" value={currentUser._id} onChange={handleChange} disabled />
 
-                <button onClick={handleSubmit}>Save</button>
+                {isLoading == true? <button disabled>Saving...</button> : <button onClick={handleSubmit}>Save</button>}
             </form>
-            {editOptions.createNew ==true? <div></div> : <button onClick={handleDelete}>Delete</button> }
+            {editOptions.createNew == true? <div></div> : <button onClick={handleDelete}>Delete</button> }
         </div>
     ); 
 
