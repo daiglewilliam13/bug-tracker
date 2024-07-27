@@ -23,14 +23,14 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
 
         } else if (editOptions?.createNew==false) {
             let updatesToSubmit = {
-                "assignedTo" : bugToSubmit.assignedTo,
+                "assignedTo" : { "$oid": assignedToUser},
                 "description": bug.description,
                 "comments": bug.comments,
                 "pullReqNum": bug.pullReqNum,
                 "status": selectedValue,
             }
-            // let response = await insertOne(bugToEdit._id, token, "bugs", updatesToSubmit);
-            // console.log("promise result: ", await response);
+            let response = await insertOne(bugToEdit._id, token, "bugs", updatesToSubmit);
+            console.log("promise result: ", await response);
             console.log(updatesToSubmit);
         }
     }
