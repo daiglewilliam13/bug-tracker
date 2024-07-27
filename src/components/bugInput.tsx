@@ -15,7 +15,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
         let bugToSubmit=bug;
         bugToSubmit.assignedTo={ "$oid": assignedToUser};
         if (editOptions?.createNew==true) {
-            
+
             bugToSubmit.createdBy={ "$oid": currentUser._id};
             bugToSubmit.created=dateString;
             let response = await insertOne("add", token, "bugs", bug);
@@ -27,15 +27,15 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
                 "description": bug.description,
                 "comments": bug.comments,
                 "pullReqNum": bug.pullReqNum,
-                "status": bug.status,
+                "status": selectedValue,
             }
-            let response = await insertOne(bugToEdit._id, token, "bugs", updatesToSubmit);
-            console.log("promise result: ", await response);
+            // let response = await insertOne(bugToEdit._id, token, "bugs", updatesToSubmit);
+            // console.log("promise result: ", await response);
+            console.log(updatesToSubmit);
         }
     }
 
     const handleChange = (event: any) => {
-        console.log(event.target)
         const { name, value } = event.target;
         setBug({ ...bug, [name]: value });
     };
