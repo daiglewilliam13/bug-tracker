@@ -13,21 +13,23 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         let bugToSubmit=bug;
-        bugToSubmit.assignedTo={ "$oid": assignedToUser._id};
+        bugToSubmit.assignedTo={ "$oid": assignedToUser};
+
         if (editOptions?.createNew==true) {
 
             bugToSubmit.createdBy={ "$oid": currentUser._id};
             bugToSubmit.created=dateString;
             let response = await insertOne("add", token, "bugs", bug);
             console.log("promise result: ", await response);
-
+            console.log(assignedToUser)
+            console.log(bugToSubmit)
         } else if (editOptions?.createNew==false) {
             let updatesToSubmit = {
-                "assignedTo" : { "$oid": assignedToUser._id},
-                "description": bug.description,
-                "comments": bug.comments,
-                "pullReqNum": bug.pullReqNum,
-                "status": selectedValue,
+                assignedTo : { "$oid": assignedToUser},
+                description : bug.description,
+                comments: bug.comments,
+                pullReqNum: bug.pullReqNum,
+                status: selectedValue,
             }
             let response = await insertOne(bugToEdit._id, token, "bugs", updatesToSubmit);
             console.log("promise result: ", await response);
