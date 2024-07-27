@@ -16,9 +16,12 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
         if (editOptions?.createNew==true) {
             bugToSubmit.createdBy={ "$oid": currentUser._id};
             bugToSubmit.assignedTo={ "$oid": assignedToUser};
+            bugToSubmit.created=dateString;
+            let response = await insertOne("add", token, "bugs", bug);
+            console.log("promise result: ", await response);
+        } else if (editOptions?.createNew==false) {
+            console.log(bug)
         }
-        let response = await insertOne("add", token, "bugs", bug);
-        console.log("promise result: ", await response);
     }
 
     const handleChange = (event: any) => {
@@ -32,17 +35,15 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
 
     const handleUserChange = (event:any) =>{
         setAssignedToUser(event.target.value)
-        console.log(assignedToUser)
     }
-    let today = new Date();
+    let today = new Date(Date.now());
 
     let dateString = today.toLocaleDateString('en-US', {
         day: '2-digit',
-        month: '2-digit',
+        month: 'numeric',
         year: 'numeric',
       })
 
-    let usersArr = allUsers
     useEffect(()=>{
         if (editOptions?.createNew==true) {
             setBug(blankBug)
