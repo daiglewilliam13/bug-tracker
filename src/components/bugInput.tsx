@@ -30,6 +30,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
     };
 
     const handleUserChange = (event:any) =>{
+
         setAssignedToUser(event.target.value)
     }
     let today = new Date();
@@ -62,7 +63,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
 
                 <label htmlFor="status">Status:</label>
 
-                <select value={selectedValue} onChange={handleUserChange}>
+                <select value={selectedValue} onChange={handleDropChange}>
                     {options.map((option) => (
                         <option key={option} value={option}>
                             {option}
@@ -77,7 +78,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
 
                 {
                 currentUser.isAdmin ==true ? 
-                <select value={assignedToUser} onChange={handleDropChange}>
+                <select value={assignedToUser} onChange={handleUserChange}>
                 {allUsers.map((user:any) => (
                     <option key={user._id} value={user._id}>
                         {user.username}
