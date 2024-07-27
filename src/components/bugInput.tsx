@@ -15,10 +15,12 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
         let bugToSubmit=bug;
         bugToSubmit.assignedTo={ "$oid": assignedToUser};
         if (editOptions?.createNew==true) {
+            
             bugToSubmit.createdBy={ "$oid": currentUser._id};
             bugToSubmit.created=dateString;
             let response = await insertOne("add", token, "bugs", bug);
             console.log("promise result: ", await response);
+
         } else if (editOptions?.createNew==false) {
             let updatesToSubmit = {
                 "assignedTo" : bugToSubmit.assignedTo,
