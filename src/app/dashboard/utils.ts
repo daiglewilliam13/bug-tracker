@@ -129,10 +129,10 @@ export function generateBugData(numBugs: number) {
   export const blankBug = {
     created: "05/25/2024",
     description: `New bug, details are TBD`,
-    createdBy: "",
+    createdBy: {},
     status: "In Progress",
     comments: "This bug needs investigation.",
     pullReqNum: 0,
     resolvedDate: "in progress",
-    assignedTo: "",
+    assignedTo: {},
 } 

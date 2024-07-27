@@ -14,12 +14,11 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
         event.preventDefault();
         let bugToSubmit=bug;
         if (editOptions?.createNew==true) {
-            bugToSubmit.createdBy=currentUser._id;
-            bugToSubmit.assignedTo=assignedToUser._id;
+            bugToSubmit.createdBy={ "$oid": currentUser._id};
+            bugToSubmit.assignedTo={ "$oid": assignedToUser._id};
         }
-        console.log(bugToSubmit);
         let response = await insertOne("add", token, "bugs", bug);
-        console.log(await response);
+        console.log("promise result: ", await response);
     }
     const handleChange = (event: any) => {
         console.log(event.target)
