@@ -46,6 +46,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
     const handleUserChange = (event:any) =>{
         setAssignedToUser(event.target.value)
     }
+
     let today = new Date(Date.now());
 
     let dateString = today.toLocaleDateString('en-US', {
@@ -59,6 +60,8 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
             setBug(blankBug)
         } else {
             setBug(bugToEdit)
+            setSelectedValue(bugToEdit.status)
+            setAssignedToUser(allUsers.find(user => user._id == bugToEdit.assignedTo));
         }
     },[])
 
