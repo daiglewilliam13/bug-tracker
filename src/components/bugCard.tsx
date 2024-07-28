@@ -15,6 +15,8 @@ export function BugCard({ bug, currentUser, allUsers }: any) {
     const clickEditButton = (event:any) => {
         setEdit(edit=>!edit);
     }
+    let assignedUsername = allUsers.find(user => user._id == bug.assignedTo).username;
+    let createdByUsername = allUsers.find(user => user._id == bug.createdBy).username;
     useEffect(()=>{
 
     },[edit])
@@ -26,10 +28,10 @@ export function BugCard({ bug, currentUser, allUsers }: any) {
                     <li>Id: {bug._id}</li>
                     <li>Status: {bug.status}</li>
                     <li>Description: {bug.description}</li>
-                    <li>Assigned To: {bug.assignedTo}</li>
+                    <li>Assigned To: {assignedUsername}</li>
                     <li>Comments: {bug.comments}</li>
                     <li>Pull Req Number: #{bug.pullReqNum}</li>
-                    <li>Created By: {bug.createdBy}</li>
+                    <li>Created By: {createdByUsername}</li>
                 <button onClick={clickEditButton}>Click To Edit</button>
                 </ul>
             </div>
