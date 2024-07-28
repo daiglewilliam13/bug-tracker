@@ -16,6 +16,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
         event.preventDefault();
         let response = await deleteOne(bug._id, token, "bugs");
         console.log(await response)
+        window.location.reload();
     }
 
     const handleSubmit = async (event: any) => {
@@ -31,21 +32,22 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
             insertOne("add", token, "bugs", bugToSubmit).then((response)=>{
                 console.log("promise result: ", response);
                 setIsLoading(false);
+                window.location.reload();
             });
 
         } else if (editOptions?.createNew==false) {
-
+            
             let updatesToSubmit = {
-                assignedTo : assignedToUser,
+                assignedTo : {"$oid":assignedToUser},
                 description : bug.description,
                 comments: bug.comments,
                 pullReqNum: bug.pullReqNum,
                 status: selectedValue,
             }
-
             insertOne(bugToEdit._id, token, "bugs", updatesToSubmit).then((response)=>{
                 console.log("promise result: ", response);
                 setIsLoading(false);
+                window.location.reload();
             });
         }
     }
