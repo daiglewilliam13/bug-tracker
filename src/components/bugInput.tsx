@@ -36,7 +36,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
             });
 
         } else if (editOptions?.createNew==false) {
-            
+            console.log("assignedTo: ", assignedToUser)
             let updatesToSubmit = {
                 assignedTo : {"$oid":assignedToUser},
                 description : bug.description,
@@ -75,12 +75,10 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
     useEffect(()=>{
         if (editOptions?.createNew==true) {
             setBug(blankBug)
-            console.log(blankBug)
         } else {
             setBug(bugToEdit)
             setSelectedValue(bugToEdit.status)
-            setAssignedToUser(allUsers.find(user => user._id == bugToEdit.assignedTo));
-            console.log(bugToEdit)
+            setAssignedToUser(bugToEdit.assignedTo);
         }
     },[isLoading])
 
@@ -112,7 +110,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
 
                 {
                 currentUser.isAdmin ==true ? 
-                <select value={assignedToUser._id} onChange={handleUserChange}>
+                <select value={assignedToUser} onChange={handleUserChange}>
                 {allUsers.map((user:any) => (
                     <option key={user._id} value={user._id}>
                         {user.username}
