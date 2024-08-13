@@ -11,7 +11,12 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEd
     const [isLoading, setIsLoading] = useState(false);
 
     let token = sessionStorage.getItem('token');
-    const closeEdit = clickEditButton;
+    let headerStr;
+    if (editOptions?.createNew == true) {
+        headerStr = "Add new bug to database";
+    } else {
+        headerStr = "Edit Bug - id:" + bugToEdit._id;
+    }
     const handleDelete = async (event: any) =>{
         event.preventDefault();
         let response = await deleteOne(bug._id, token, "bugs");
@@ -86,7 +91,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEd
 
     return (
         <div className='input-modal'>
-            <button onClick={clickEditButton}>CLOSE</button>
+            <div>{headerStr}</div>
             <form>
                 <label htmlFor="created">Created On:</label>
                 <input type="text" name="created" id="created" value={dateString} onChange={handleChange} disabled />
@@ -130,10 +135,10 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEd
                 <label htmlFor="createdBy">Created By:</label>
                 <input type="text" name="createdBy" id="createdBy" value={currentUser._id} onChange={handleChange} disabled />
 
-                {isLoading == true? <button disabled>Saving...</button> : <button onClick={handleSubmit}>Save</button>}
             </form>
+            {isLoading == true? <button disabled>Saving...</button> : <button onClick={handleSubmit}>Save</button>} 
             {editOptions.createNew == true? <div></div> : <button onClick={handleDelete}>Delete</button> }
-            
+            <button onClick={clickEditButton}>DISCARD CHANGES</button>
         </div>
     ); 
 
