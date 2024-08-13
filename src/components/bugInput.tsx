@@ -99,7 +99,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEd
                 <input type="text" name="created" id="created" value={dateString} onChange={handleChange} disabled />
 
                 <label htmlFor="id">Id:</label>
-                <input type="text" name="id" id="id" value={bug._id} onChange={handleChange} disabled />
+                <input placeholder="will be assigned when saved" type="text" name="id" id="id" value={bug._id} onChange={handleChange} disabled />
 
                 <label htmlFor="status">Status:</label>
 
