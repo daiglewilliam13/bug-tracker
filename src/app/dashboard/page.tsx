@@ -56,15 +56,15 @@ export default function Page() {
   } else {
     return (
       <div>
-        <div>
+        <h1>
           Welcome, Admin
-        </div>
-        <div>
+        </h1>
+
           <BugInput bugToEdit={blankBug} editOptions={editOptions} currentUser={user} allUsers={allUsers}/>
-        </div>
-        <div>
+
+
           <BugList currentUser={user} list={bugs} allUsers={allUsers}/>
-        </div>
+
       </div>
     );
   }

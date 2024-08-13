@@ -22,7 +22,6 @@ export function BugCard({ bug, currentUser, allUsers }: any) {
     },[edit])
     return (
         <div >
-            <div>
                 <ul className="bug-card">
                     <li>Created: {bug.created}</li>
                     <li>Id: {bug._id}</li>
@@ -34,7 +33,6 @@ export function BugCard({ bug, currentUser, allUsers }: any) {
                     <li>Created By: {createdByUsername}</li>
                 <button onClick={clickEditButton}>Click To Edit</button>
                 </ul>
-            </div>
                 <BugInput bugToEdit={bug} editOptions={editOptions} currentUser={currentUser} allUsers={allUsers} clickEditButton={clickEditButton}/>
         </div>
     );

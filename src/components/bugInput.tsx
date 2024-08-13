@@ -91,6 +91,8 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEd
 
     return (
         <div className='input-modal'>
+            <div className="content-wrapper">
+
             <div>{headerStr}</div>
             <form>
                 <label htmlFor="created">Created On:</label>
@@ -115,8 +117,8 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEd
                 <label htmlFor="assignedTo">Assigned To:</label>
 
                 {
-                currentUser.isAdmin ==true ? 
-                <select value={assignedToUser} onChange={handleUserChange}>
+                    currentUser.isAdmin ==true ? 
+                    <select value={assignedToUser} onChange={handleUserChange}>
                 {allUsers.map((user:any) => (
                     <option key={user._id} value={user._id}>
                         {user.username}
@@ -124,7 +126,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEd
                 ))}
             </select>
                 : <input type="text" name="assignedTo" id="assignedTo" value={bug.assignedTo} onChange={handleChange} disabled/>  
-                }
+            }
 
                 <label htmlFor="comments">Comments:</label>
                 <input type="text" name="comments" id="comments" value={bug.comments} onChange={handleChange} />
@@ -139,6 +141,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEd
             {isLoading == true? <button disabled>Saving...</button> : <button onClick={handleSubmit}>Save</button>} 
             {editOptions.createNew == true? <div></div> : <button onClick={handleDelete}>Delete</button> }
             <button onClick={clickEditButton}>DISCARD CHANGES</button>
+            </div>
         </div>
     ); 
 
