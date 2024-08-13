@@ -1,8 +1,10 @@
-
+#main-wrapper {
+    padding: 5rem;
+}
 .bug-card {
     display:flex;
     padding: 2rem;
-    justify-content: space-around;
+    justify-content: space-evenly;
     width: 100%;
     max-width: 1500px;
     flex-wrap: wrap;
@@ -10,6 +12,23 @@
     border: 1px solid grey;
     border-radius: 5px;
 
+}
+
+.bug-card li {
+    display: block;
+    width: 100%;
+    max-width: 20rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid grey;
+    border-left: 1px solid grey;
+    padding-left: .5rem;
+
+}
+
+.bug-card button {
+    display: block;
+    width: 100%;
+    max-width: 15rem;
 }
 
 input, textarea, select {
@@ -23,7 +42,7 @@ input, textarea, select {
 button {
     border: 2px solid white;
     border-radius: 3px;
-    margin-right: 1rem;
+    margin: 0 1rem 1rem 0;
     padding: .5rem 1rem;
     transition: 100ms;
 }
@@ -68,6 +87,17 @@ button:hover, .highlight {
     left: -13%;
     overflow: hidden;
     padding: 10rem;
+}
+
+.input-modal .header {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid white;
+}
+
+.input-modal input,
+.input-modal textarea {
+    width: 100%;
 }
 
 @keyframes fade-in {

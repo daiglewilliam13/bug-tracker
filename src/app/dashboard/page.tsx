@@ -55,7 +55,7 @@ export default function Page() {
     );
   } else {
     return (
-      <div>
+      <div id="main-wrapper">
         <h1>
           Welcome, Admin
         </h1>
