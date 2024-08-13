@@ -29,3 +29,13 @@ button:hover, .highlight {
     background-color: white;
     color: black;
 }
+
+.input-modal {
+    height: 100%;
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    margin: 5rem auto;
+    background-color: black;
+}

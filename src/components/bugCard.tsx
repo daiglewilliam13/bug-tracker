@@ -35,9 +35,7 @@ export function BugCard({ bug, currentUser, allUsers }: any) {
                 <button onClick={clickEditButton}>Click To Edit</button>
                 </ul>
             </div>
-            <div>
-                <BugInput bugToEdit={bug} editOptions={editOptions} currentUser={currentUser} allUsers={allUsers}/>
-            </div>
+                <BugInput bugToEdit={bug} editOptions={editOptions} currentUser={currentUser} allUsers={allUsers} clickEditButton={clickEditButton}/>
         </div>
     );
 }

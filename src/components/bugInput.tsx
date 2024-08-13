@@ -4,14 +4,14 @@ import { useState, useEffect } from 'react';
 import { blankBug, insertOne, deleteOne } from '@/app/dashboard/utils';
 const options = ['In Progress', 'Unassigned', 'Resolved'];
 
-export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
+export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEditButton}:any) {
     const [bug, setBug] = useState(blankBug);
     const [selectedValue, setSelectedValue] = useState(options[0])
     const [assignedToUser, setAssignedToUser] = useState(allUsers[0]._id)
     const [isLoading, setIsLoading] = useState(false);
 
     let token = sessionStorage.getItem('token');
-
+    const closeEdit = clickEditButton;
     const handleDelete = async (event: any) =>{
         event.preventDefault();
         let response = await deleteOne(bug._id, token, "bugs");
@@ -85,7 +85,8 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
     if(editOptions.show == true){
 
     return (
-        <div className='bug-card'>
+        <div className='input-modal'>
+            <button onClick={clickEditButton}>CLOSE</button>
             <form>
                 <label htmlFor="created">Created On:</label>
                 <input type="text" name="created" id="created" value={dateString} onChange={handleChange} disabled />
@@ -132,6 +133,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers}:any) {
                 {isLoading == true? <button disabled>Saving...</button> : <button onClick={handleSubmit}>Save</button>}
             </form>
             {editOptions.createNew == true? <div></div> : <button onClick={handleDelete}>Delete</button> }
+            
         </div>
     ); 
 

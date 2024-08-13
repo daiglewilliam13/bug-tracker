@@ -31,9 +31,15 @@ export function BugList({currentUser, list, allUsers}:any) {
   const changeEditStatus = () => {
     setAddBug(addBug => !addBug);
   }
-
+  let classStr;
   let adminStatus = currentUser.isAdmin;
   let formattedBugList = createBugList(list);
+
+  if(addBug==true){
+    classStr = "filter-button highlight"
+  } else {
+    classStr = "filter-button"
+  }
 useEffect(()=>{
   let buttonList = Array.from(document.getElementsByClassName('filter-button'));
   buttonList.forEach((button)=>{
@@ -51,10 +57,10 @@ if (list){
           { adminStatus ? <button id='all' className={'filter-button'} onClick={()=> setFilter('all')}>All Bugs</button> : <div></div> }
           <button id='assigned' className={'filter-button'} onClick={()=> setFilter('assigned')}>Assigned Bugs</button>
           <button id='resolved'className={'filter-button'} onClick={()=> setFilter('resolved')}>Resolved Bugs</button>
-          { adminStatus ? <button id='add' className={'filter-button'} onClick={changeEditStatus}>Add Bug</button> : <div></div> }
+          { adminStatus ? <button id='add' className={classStr} onClick={changeEditStatus}>Add Bug</button> : <div></div> }
         </div>
         <div>
-          <BugInput bugToEdit={blankBug} editOptions={editOptions} currentUser={currentUser} allUsers={allUsers}/>
+          <BugInput bugToEdit={blankBug} editOptions={editOptions} currentUser={currentUser} allUsers={allUsers} clickEditButton={changeEditStatus}/>
         </div>
         <div>
           {formattedBugList}
