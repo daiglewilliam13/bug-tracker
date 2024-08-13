@@ -93,7 +93,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEd
         <div className='input-modal'>
             <div className="content-wrapper">
 
-            <div>{headerStr}</div>
+            <div className="header">{headerStr}</div>
             <form>
                 <label htmlFor="created">Created On:</label>
                 <input type="text" name="created" id="created" value={dateString} onChange={handleChange} disabled />

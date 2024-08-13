@@ -1,3 +1,4 @@
+
 .bug-card {
     display:flex;
     padding: 2rem;
@@ -15,12 +16,14 @@ input, textarea, select {
     background-color: black;
     border: 2px solid white;
     border-radius: 5px;
+    display: block;
+    margin-bottom: 1rem;
 }
 
 button {
     border: 2px solid white;
     border-radius: 3px;
-    margin: .5rem;
+    margin-right: 1rem;
     padding: .5rem 1rem;
     transition: 100ms;
 }
@@ -57,13 +60,14 @@ button:hover, .highlight {
     position: absolute;
     z-index: 0;
     background: rgb(0,212,255);
-    background: radial-gradient(circle, rgba(0,212,255,1) 0%, rgba(9,9,121,1) 19%, rgb(0, 0, 0) 59%);
+    background: radial-gradient(circle, rgba(0,212,255,1) 0%, rgba(9,9,121,1) 39%, rgb(0, 0, 0) 89%);
     opacity: .8;
     height: 100vh;
-    width: 200%;
+    width: 100vw;
     top: -5rem;;
-    left: -50%;
+    left: -13%;
     overflow: hidden;
+    padding: 10rem;
 }
 
 @keyframes fade-in {
