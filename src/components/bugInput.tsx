@@ -128,7 +128,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEd
                     </option>
                 ))}
             </select>
-                : <input type="text" name="assignedTo" id="assignedTo" value={bug.assignedTo} onChange={handleChange} disabled/>  
+                : <input type="text" name="assignedTo" id="assignedTo" value={bugToEdit.assignedTo} onChange={handleChange} disabled/>  
             }
 
                 <label htmlFor="comments">Comments:</label>
