@@ -40,7 +40,6 @@ export default function Page() {
         setUser(foundUsers[0])
         findAll(token, 'bugs').then((response) => {
           let foundBugs = response.documents
-          console.log(foundBugs)
           setBugs(foundBugs);
           setIsLoading(false)
           })
