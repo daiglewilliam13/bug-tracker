@@ -90,6 +90,9 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEd
     if(editOptions.show == true){
 
     return (
+        <div>
+
+        <div className='modal-overlay'></div>
         <div className='input-modal'>
             <div className="content-wrapper">
 
@@ -142,6 +145,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEd
             {editOptions.createNew == true? <div></div> : <button onClick={handleDelete}>Delete</button> }
             <button onClick={clickEditButton}>DISCARD CHANGES</button>
             </div>
+        </div>
         </div>
     ); 
 

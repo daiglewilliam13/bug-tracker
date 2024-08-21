@@ -3,7 +3,6 @@ html,body {
 }
 #main-wrapper {
     background: rgb(0,212,255);
-    background-image:  url('../styles/images/bug-vector.png');
 background: radial-gradient(circle, rgba(0,212,255,.5) 0%, rgba(9,9,121,.5) 25%, rgba(6,5,88,.5) 30%, rgba(0,0,0,.5) 60%);
     padding: 5rem;
     height: 100%;
@@ -70,10 +69,12 @@ button:hover, .highlight {
 }
 
 .input-modal {
-    width: 80%;
-    height: 80%;
-    position: absolute;
-    z-index: 999;
+    width: 1200px;
+    max-width: 90%;
+    height: 700px;
+    max-height: 100%;
+    position: fixed;
+    z-index: 1000;
     top: 5rem;
     left: 50%;
     transform: translateX(-50%);
@@ -83,7 +84,20 @@ button:hover, .highlight {
     opacity: 1;
     border: 1px solid white;
     animation: fade-in 200ms forwards 1;
+    overflow-x: hidden;
     overflow-y: scroll;
+
+}
+
+.modal-overlay {
+    transition: 200ms;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: 999;
+    top:0;
+    left: 0;
+    background: rgba(255,255,255,0.5)
 }
 
 
