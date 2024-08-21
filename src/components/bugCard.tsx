@@ -3,15 +3,13 @@
 import { useEffect, useState } from 'react';
 import { BugInput } from './bugInput';
 
-
-
-export function BugCard({ bug, currentUser, allUsers }: any) {
+export function BugCard({ bug, currentUser, allUsers }:any) {
     const [edit, setEdit] = useState(false);
     let editOptions = {
         createNew: false,
         show: edit,
     }
-    const clickEditButton = (event:any) => {
+    const clickEditButton = () => {
         setEdit(edit=>!edit);
     }
     let imgName;
@@ -27,8 +25,8 @@ export function BugCard({ bug, currentUser, allUsers }: any) {
         default: 
         imgName="images/redx.svg";  
     }
-    let assignedUsername = allUsers.find(user => user._id == bug.assignedTo).username;
-    let createdByUsername = allUsers.find(user => user._id == bug.createdBy).username;
+    let assignedUsername = allUsers.find((user: { _id: any; }) => user._id == bug.assignedTo).username;
+    let createdByUsername = allUsers.find((user: { _id: any; }) => user._id == bug.createdBy).username;
     useEffect(()=>{
 
     },[edit])
