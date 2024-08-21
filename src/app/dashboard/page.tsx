@@ -20,8 +20,7 @@ export default function Page() {
 
   let key = process.env.NEXT_PUBLIC_DB_KEY;
   let tokenUrl = process.env.NEXT_PUBLIC_BASE_URL;
-
-
+  
   const getUsers = async (accessToken: string) => {
     let foundUsers = findAll(accessToken, 'users')
       .then((response) => {
@@ -58,12 +57,8 @@ export default function Page() {
         <h1>
           Welcome, Admin
         </h1>
-
           <BugInput bugToEdit={blankBug} editOptions={editOptions} currentUser={user} allUsers={allUsers}/>
-
-
           <BugList currentUser={user} list={bugs} allUsers={allUsers}/>
-
       </div>
     );
   }
