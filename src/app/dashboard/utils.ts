@@ -159,7 +159,7 @@ export function generateBugData(numBugs: number) {
     created: "",
     description: `New bug, details are TBD`,
     createdBy: {} || "",
-    status: "In Progress",
+    status: "Unassigned",
     comments: "This bug needs investigation.",
     pullReqNum: 0,
     resolvedDate: "in progress",
