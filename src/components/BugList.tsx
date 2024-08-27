@@ -7,7 +7,7 @@ import { BugInput } from "@/components/bugInput";
 import { useState, useEffect } from 'react';
 
 export function BugList({currentUser, list, allUsers}:any) {
-  const [filter, setFilter] = useState('assigned');
+  const [filter, setFilter] = useState('all');
   const [addBug, setAddBug] = useState(false);
 
   let editOptions = {
