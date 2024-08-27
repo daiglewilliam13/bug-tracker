@@ -156,7 +156,6 @@ export function generateBugData(numBugs: number) {
 
   
   export const blankBug = {
-    _id: '',
     created: "",
     description: `New bug, details are TBD`,
     createdBy: {} || "",
@@ -164,5 +163,5 @@ export function generateBugData(numBugs: number) {
     comments: "This bug needs investigation.",
     pullReqNum: 0,
     resolvedDate: "in progress",
-    assignedTo: "" || {} ,
+    assignedTo: {} || "" ,
 } 
