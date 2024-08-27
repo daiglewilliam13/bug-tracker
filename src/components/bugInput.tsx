@@ -6,7 +6,7 @@ const options = ['In Progress', 'Unassigned', 'Resolved'];
 
 export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEditButton}:any) {
     const [bug, setBug] = useState(blankBug);
-    const [selectedValue, setSelectedValue] = useState(options[0])
+    const [selectedValue, setSelectedValue] = useState(options[0]);
     const [assignedToUser, setAssignedToUser] = useState(allUsers[0]._id)
     const [isLoading, setIsLoading] = useState(false);
 
@@ -19,11 +19,10 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEd
     }
     const handleDelete = async (event: any) =>{
         event.preventDefault();
-        let response = await deleteOne(bug._id, token, "bugs");
-        console.log(await response)
+        let response = await deleteOne(bugToEdit._id, token, "bugs");
         window.location.reload();
     }
-
+ 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         setIsLoading(true);
@@ -33,9 +32,9 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEd
             bugToSubmit.assignedTo={ "$oid": assignedToUser};
             bugToSubmit.createdBy={ "$oid": currentUser._id};
             bugToSubmit.created=dateString;
+            bugToSubmit.status=selectedValue;
 
             insertOne("add", token, "bugs", bugToSubmit).then((response)=>{
-                console.log("promise result: ", response);
                 setIsLoading(false);
                 window.location.reload();
             });
@@ -50,7 +49,6 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEd
                 status: selectedValue,
             }
             insertOne(bugToEdit._id, token, "bugs", updatesToSubmit).then((response)=>{
-                console.log("promise result: ", response);
                 setIsLoading(false);
                 window.location.reload();
             });
@@ -62,7 +60,6 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEd
         setBug({ ...bug, [name]: value });
     };
     const handleDropChange = (event:any) => {
-        console.log(event.target.value)
         setSelectedValue(event.target.value);
     };
 
@@ -103,7 +100,7 @@ export function BugInput({bugToEdit, editOptions, currentUser, allUsers, clickEd
                 <input type="text" name="created" id="created" value={dateString} onChange={handleChange} disabled />
 
                 <label htmlFor="id">Id:</label>
-                <input placeholder="will be assigned when saved" type="text" name="id" id="id" value={bug._id} onChange={handleChange} disabled />
+                <input placeholder="will be assigned when saved" type="text" name="id" id="id" value={bugToEdit._id} onChange={handleChange} disabled />
 
                 <label htmlFor="status">Status:</label>
 
